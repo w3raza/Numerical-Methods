@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+
+
+\title{Diagonalizacja macierzy metodą potegową}
+\author{Wiktoria Zaczyk}
+\date{08.04.2021}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp teoretyczny}
+Na piątych laboratoriach zajęliśmy się diagonalizacją macierzy z pomocą metody potęgowej.
+
+\newline\newline
+
+\textbf{Wektor} to obiekt matematyczny opisywany za pomocą jego długości, zwrotu oraz kierunku. Notacja,
+z którą wykorzystujemy w obliczeniach matematycznych do zapisu wektora to notacja macierzowa.
+Trójelementowy wektor wierszowy:
+
+\newline
+\begin{center}
+$v = [x~ y~ z]$
+\end{center}
+
+\newline\newline
+\textbf{Iloczyn tensorowy wektorów}
+\newline
+W naszym przypadku będziemy korzystać z iloczynu tensorowego wektorów kolumnowego oraz wierszowego, więc w efekcie dostaniemy macierz o wymiarach $n \cdot n$, gdzie n to ilość elementów wektora.
+
+\newline
+\begin{center}
+$v \otimes w = 
+\left[\begin{array}{cc}
+1\\
+0
+\end{array}\right]_v 
+\otimes
+~[1,0]_w =
+\left[\begin{array}{cc}
+1 \cdot [1,0]_w\\
+0 \cdot [1,0]_w
+\end{array}\right]
+= \left[\begin{array}{cc}
+1, 0\\
+0,0
+\end{array}\right]
+$
+\end{center}
+
+\newline\newline
+\textbf{Macierz} to tablica prostokątna, która zawiera liczby. Notacja w jakiej zapisujemy macierze widoczna
+jest poniżej:
+
+\newline
+\begin{center}
+$$
+{A} =
+\left[ \begin{array}{cc}
+a_{11} & a_{12} \\
+a_{21} & a_{22} \\
+\end{array} \right]
+$$
+
+\end{center}
+Na powyższym przykładzie widnieje macierz kwadratowa (ilość kolumn jest równa ilości wierszy) o
+wymiarze 2. Wyróżniamy kilka rodzajów macierzy, poniżej te najważniejsze, które są istotne dla
+przebiegu ćwiczenia.
+
+\newline\newline
+\textbf{Macierz diagonalna} to taka, która posiada wartości różne od zera jedynie na przekątnej (tzw. diagonali).
+\newline\newline
+\textbf{Macierz wstęgowa}  to taka, której wszystkie elementy są zerowe poza diagonalą i w jej pobliżu. Mając
+daną macierz $n \cdot n$ jej elementy $a_i,j$ są niezerowe, gdy $i-k_1 \leq j \leq i+k_2$ gdzie $k_1_,_2 \geq 0$ określają
+szerokość wstęgi.
+\newline\newline
+\textbf{Macierz trójdiagonalna}  to taka, która posiada wartości różne od zera jedynie na diagonali, oraz
+pierwszej naddiagonali i pierwszej poddiagonali.
+
+\section{Problem}
+Wyznaczanie wartości własnych iteracyjnie przy użyciu metody potęgowej, opisanej algorytmem:
+
+\begin{flushleft}
+
+$W_0=A$ 
+\hspace{4 cm}(inicjalizacja macierzy iterującej)\\
+for($k = 0; k < K_v_a_l; k ++$)\\
+\{\\
+\hspace{2 mm} 
+$x_k^0 = [1,1,...,1]$ 
+\hspace{2.5 cm}
+(inicjalizacja wektora startowego)\\
+\hspace{2 mm}
+for($i = 1; i \leq IT MAX; i ++$)\\
+\hspace{2 mm}\{\\
+
+\hspace{4 mm}
+$x_k^i^+^1 = W_k x_k^i$\\
+
+\hspace{4 mm}
+$\lambda_k^i= \frac{(x_k^i^+^1)^T x_k^i}{(x_k^i)^T x_k^i}$\\
+
+\hspace{4 mm}
+$x_k^i= 
+\frac{x_k^i^+^1}{||x_k^i^+^1||_2}$\\
+
+\hspace{2 mm}\}\\
+
+\hspace{2 mm}
+$W_k_+_1 = W_k- 
+\lambda_k ~x_k^i ~(x_k^i)^T$
+\hspace{0.8 cm}
+(iloczyn tensorowy)\\
+\}\\
+\end{flushleft}
+gdzie:
+\begin{itemize}
+    \item k - numer wyznaczanej wartości własnej,
+    \item i - numer iteracji dla określonego k,
+    \item A - macierz pierwotna o wymiarze n, wypełniona następująco:
+    
+    \begin{center}
+        $A_i_j = \frac{1+|i+j|}{1+|i-j|}$\\
+   gdzie: i, j = 0, 1, . . . , n-1
+    \end{center}
+    
+    \item $W_k$ - macierz iteracji,
+    \item $\lambda_k^i$- przybliżenie k-tej wartości własnej w i-tej iteracji,
+    \item $x_k^i$ - i-te przybliżenie k-tego wektora własnego,
+    \item $K_v_a_l=n$ - liczba wartości własnych do wyznaczenia,
+    \item IT MAX = 12  - maksymalna liczba iteracji dla każdego k,
+\end{itemize}
+
+\section{Cel zadania}
+Za zadanie mieliśmy utworzyć macierz A rzędu $n=7$ i wyznaczyć jej wartości własne $\lambda_k^i$, które zapisaliśmy dla każdego k   oraz zachowaliśmy wyznaczone wektory własne w postaci kolumn macierzy X.
+
+\begin{center}
+    $X=[x_0,x_1,...,x_n_-_1]$
+\end{center}
+Co pozwoliło na wyznaczenie macierzy D:
+
+\begin{center}
+    $D=X^T\cdot A \cdot X$
+\end{center}
+
+\section{Wyniki}
+
+\begin{flushleft}
+Na poniższym rysunku możemy odczytać znalezione przybliżenia wartości własnych. Na osi X
+znajduje się numer wartości własnej.
+\end{flushleft}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]k
+\caption{Wykres przybliżonych wartości własnych}
+\label{fig:obrazek k}
+\end{figure}
+
+\begin{flushleft}
+\textbf{Macierz diagonalna D}\\
+W wyniku naszych działań otrzymaliśmy macierz diagonalną D następującej postaci:
+\end{flushleft}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{[c c c c c c ]}
+    3.59586   & -8.896e-15 &   -2.289e-16   & -6.939e-17  &  -2.715e-16 &    2.706e-16  &  -5.551e-17 \\
+   -8.993e-15   &     0.284988  &  -1.883e-06  &   -9.658e-09  &  -1.579e-09  &  -4.857e-17 &   -8.673e-18 \\
+   -1.665e-16 &   -1.883e-06    &    0.122798  &   -0.002  &  -0.0001  &  -2.504e-12 &   -7.459e-17 \\
+   -5.551e-16  &   -9.658e-09   &  -0.002   &     0.590378  &  -1.137e-08   & -1.388e-17 &   -9.194e-17 \\
+   -3.331e-16  &  -1.58e-09  &  -0.0001  &  -1.137e-08   &    0.0865952  &  -1.608e-09   & -7.261e-15 \\
+    1.110e-16  &   3.469e-17 &   -2.504e-12  &   2.776e-17  &  -1.608e-09    &    0.170974  &  -4.069e-09 \\
+   -2.776e-16 &   -6.939e-18  &  -2.9490e-17  &  -5.55e-17 &   -7.298e-15 &   -4.069e-09   &    0.0981544    \\
+    \end{tabular}
+
+    \label{tab:my_label}
+\end{table}
+\section{Wnioski}
+\begin{flushleft}
+Na podstawie wyznaczania własności własnych można zauważyć, iż w większości przypadków
+wystarczy około 6-7 iteracji, aby wartości własne już od tej pory były stałe. Można zauważyć, że macierz D jest macierzą prawie diagonalną,
+elementy poza przekątną są bliskie zeru, jednak nie są mu równe ze względu na niedokładność obliczeń numerycznych. Mimo wszystko wartości są zadowalające, co w połączeniu z dobrą zbieżnością wartości własnych świadczy o skuteczności i prostocie wybranej metody.
+\end{flushleft}
+
+\end{document}

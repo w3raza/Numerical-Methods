@@ -1,0 +1,14 @@
+f(x) = x/(1+x*x)
+
+set key left top
+set datafile separator whitespace
+set term png
+
+set title "n=15"
+set ylabel "y(x)"
+set xlabel "x"
+
+set output "15.png"
+plot 'data15c.dat' u 1:3 w l lt 1 lw 1 t 'czeb', \
+'data15.dat' u 1:3 w l lt 2 lw 1 t 'equal', \
+     f(x) t 'f(x)' 
